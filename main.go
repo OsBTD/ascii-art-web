@@ -16,7 +16,7 @@ func Home(w http.ResponseWriter, r *http.Request) {
 		http.NotFound(w, r)
 		return
 	}
-	temp, err := template.ParseFiles("templates\\index.html")
+	temp, err := template.ParseFiles("templates/index.html")
 	if err != nil {
 		http.Error(w, "Error : page not found", http.StatusNotFound)
 	}
@@ -29,7 +29,7 @@ func Ascii(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	temp, err := template.ParseFiles("templates\\index.html")
+	temp, err := template.ParseFiles("templates/index.html")
 	if err != nil {
 		http.Error(w, "Error : page not found", http.StatusNotFound)
 	}
@@ -55,3 +55,4 @@ func main() {
 }
 
 //skipping unprintable characters except \r and \n
+
