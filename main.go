@@ -41,10 +41,11 @@ func Ascii(w http.ResponseWriter, r *http.Request) {
 
 	}
 
-	PrintArt := ascii.PrintArt(input, banner)
-
+	PrintArt, unprintable := ascii.PrintArt(input, banner)
 	temp.Execute(w, PrintArt)
-
+	if unprintable {
+		fmt.Fprintln(w, "Note : your input contains unprintable ascii characters which will be skipped")
+	}
 }
 
 func main() {
@@ -55,4 +56,3 @@ func main() {
 }
 
 //skipping unprintable characters except \r and \n
-

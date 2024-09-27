@@ -16,7 +16,7 @@ func Checknewline(inputsplit []string) bool {
 	return true
 }
 
-func PrintArt(input, banner string) string {
+func PrintArt(input, banner string) (string, bool) {
 	// here we read the text file containing the ascii art characters
 	content, err := os.ReadFile("Banner/" + banner + ".txt")
 	if err != nil {
@@ -39,6 +39,7 @@ func PrintArt(input, banner string) string {
 	}
 
 	var result string
+	var unprintable bool = false
 	inputsplit := strings.Split(input, "\r\n")
 	// for i := 0; i < len(inputsplit)-1; i++ {
 	// 	if inputsplit[i] < " " || inputsplit[i] > "~" {
@@ -54,13 +55,19 @@ func PrintArt(input, banner string) string {
 		} else if len(line) != 0 && !Checknewline(inputsplit) {
 			for i := 0; i < 8; i++ {
 				for j := 0; j < len(line); j++ {
-					inputrune := rune(line[j])
-					result += Replace[inputrune][i]
+					if line[j] < 32 || line[j] > 126 {
+						unprintable = true
+						continue
+					} else {
+						inputrune := rune(line[j])
+						result += Replace[inputrune][i]
+
+					}
 
 				}
 				result += "\n"
 			}
 		}
 	}
-	return result
+	return result, unprintable
 }
